@@ -1,0 +1,79 @@
+group = "vn.ali.flutter_ali_ott_hotline"
+version = "1.0-SNAPSHOT"
+
+buildscript {
+    ext.kotlin_version = "1.8.0"
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("com.android.tools.build:gradle:7.4.2")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+
+        maven {
+            url "https://maven.pkg.github.com/Ali-Corp/AliOTT"
+            credentials {
+                username "alicorpvn"
+                password "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"
+            }
+        }
+    }
+}
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+android {
+    if (project.android.hasProperty("namespace")) {
+        namespace = "vn.ali.flutter_ali_ott_hotline"
+    }
+
+    compileSdk = 34
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    sourceSets {
+        main.java.srcDirs += "src/main/kotlin"
+        test.java.srcDirs += "src/test/kotlin"
+    }
+
+    defaultConfig {
+        minSdk = 24
+    }
+
+    dependencies {
+        implementation 'vn.ali.ott:hotline:1.0.6'
+
+//        testImplementation("org.jetbrains.kotlin:kotlin-test")
+//        testImplementation("org.mockito:mockito-core:5.0.0")
+    }
+
+//    testOptions {
+//        unitTests.all {
+//            useJUnitPlatform()
+//
+//            testLogging {
+//               events "passed", "skipped", "failed", "standardOut", "standardError"
+//               outputs.upToDateWhen {false}
+//               showStandardStreams = true
+//            }
+//        }
+//    }
+}

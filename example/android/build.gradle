@@ -1,0 +1,38 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+
+        maven {
+            url "https://maven.pkg.github.com/Ali-Corp/AliOTT"
+            credentials {
+                username "alicorpvn"
+                password "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"
+            }
+        }
+    }
+}
+buildscript {
+    ext.kotlin_version = '1.8.0'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
