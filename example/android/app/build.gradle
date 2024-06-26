@@ -64,7 +64,7 @@ android {
 //        implementation 'androidx.appcompat:appcompat:1.6.1'
 //        implementation 'com.android.support:multidex:2.0.1' //enter the latest multidex version
         //LOCTB
-        implementation 'vn.ali.ott:hotline:1.0.6'
+        implementation 'vn.ali.ott:hotline:1.0.7'
         //implementation files('ALI_CMM.aar')
     }
 }

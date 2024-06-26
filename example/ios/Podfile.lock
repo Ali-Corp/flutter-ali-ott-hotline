@@ -1,10 +1,10 @@
 PODS:
-  - ALIOTT/Hotline (1.0.3):
+  - ALIOTT/Hotline (1.0.4):
     - SwiftyJSON (~> 5.0)
     - WebRTC-lib (= 113.0.0)
   - Flutter (1.0.0)
   - flutter_ali_ott_hotline (0.0.1):
-    - ALIOTT/Hotline (~> 1.0.3)
+    - ALIOTT/Hotline (~> 1.0.4)
     - Flutter
   - integration_test (0.0.1):
     - Flutter
@@ -30,7 +30,7 @@ DEPENDENCIES:
   - Starscream (~> 3.1)
 
 SPEC REPOS:
-  https://github.com/Ali-Corp/PodSpecs:
+  https://github.com/Ali-Corp/PodSpecs.git:
     - ALIOTT
   https://github.com/CocoaPods/Specs.git:
     - Starscream
@@ -52,9 +52,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/darwin"
 
 SPEC CHECKSUMS:
-  ALIOTT: f2c3efb960e2fbda27f419c82bd7320ead67b787
+  ALIOTT: 1cb7e8875f5dab911a5aecf8d7b183db4d520ec5
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_ali_ott_hotline: 1e13afe1e9153c0c8ff71f103c53bacb2237142a
+  flutter_ali_ott_hotline: 9b6ff940503f8ec7e08ca7e59d273aee0ca38c6a
   integration_test: ce0a3ffa1de96d1a89ca0ac26fca7ea18a749ef4
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
@@ -65,4 +65,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 012377c815bcd03b2ed0ce3e03d88c917b1e269c
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.15.2
