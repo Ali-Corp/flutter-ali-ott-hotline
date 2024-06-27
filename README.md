@@ -41,7 +41,7 @@ repositories{
 
 ```gradle
 dependencies {
-  implementation 'vn.ali.ott:hotline:1.0.6'
+  implementation 'vn.ali.ott:hotline:1.0.7'
 }
 ```
 
