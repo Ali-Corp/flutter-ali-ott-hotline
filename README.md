@@ -12,7 +12,7 @@
 dependencies:
   flutter:
   ...
-  flutter_ali_ott_hotline: ^0.0.1
+  flutter_ali_ott_hotline: ^1.0.2
 ```
 
 ## Cấu hình Android
@@ -31,7 +31,7 @@ repositories{
       url 'https://maven.pkg.github.com/Ali-Corp/AliOTT'
       credentials {
           username "alicorpvn"
-          password "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"
+          password "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"
       }
   }
 }
@@ -157,4 +157,3 @@ _flutterAliOttHotlinePlugin.setCallEventCallbacks(
 ## Ví dụ hoàn chỉnh
 
 [FlutterExample](https://github.com/Ali-Corp/flutter-ali-ott-hotline/tree/main/example)
-

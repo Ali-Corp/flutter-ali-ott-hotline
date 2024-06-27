@@ -24,7 +24,7 @@ allprojects {
             url "https://maven.pkg.github.com/Ali-Corp/AliOTT"
             credentials {
                 username "alicorpvn"
-                password "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"
+                password "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"
             }
         }
     }
