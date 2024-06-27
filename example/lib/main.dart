@@ -19,6 +19,16 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   ALIOTTCall? _call;
   final _flutterAliOttHotlinePlugin = FlutterAliOttHotline();
+  final phoneApp = '0123123123';
+  final fullName = 'Guest Demo';
+  final avatarGuest =
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl9iEvsQTiAV0n55hDtyEFRAmDNomSPd7Xq68dqBgX57Fp8W5qgTvaFRT2mg&s';
+  //Tham số host line
+  final REPLACE_SERVICE_ID = '1';
+  final REPLACE_SERVICE_KEY = '1%40B6A7A0357758CD9F';
+  final REPLACE_SERVICE_NAME = 'Hotline Taxi';
+  final REPLACE_SERVICE_AVATAR =
+      'https://images.unsplash.com/photo-1574328495409-33bc8aff6d56?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
 
   @override
   void initState() {
@@ -36,11 +46,11 @@ class _MyAppState extends State<MyApp> {
     _flutterAliOttHotlinePlugin.config(
       "production",
       ALIOTTHotlineConfig(
-          id: "1",
-          key: "1%40B6A7A0357758CD9F",
-          name: "Hotline Taxi",
-          icon:
-              "https://images.unsplash.com/photo-1574328495409-33bc8aff6d56?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+        id: REPLACE_SERVICE_ID,
+        key: REPLACE_SERVICE_KEY,
+        name: REPLACE_SERVICE_NAME,
+        icon: REPLACE_SERVICE_AVATAR,
+      ),
     );
   }
 
@@ -61,9 +71,10 @@ class _MyAppState extends State<MyApp> {
           body: TextButton(
             onPressed: () {
               _flutterAliOttHotlinePlugin.startHotlineCall(
-                  "0949194668",
-                  "Vu Ho",
-                  "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png");
+                phoneApp,
+                fullName,
+                avatarGuest,
+              );
             },
             child: Text('Call Hotline'),
           ),

@@ -1,6 +1,6 @@
 name: flutter_ali_ott_hotline
 description: "A Flutter plugin enabling hotline calls via WebRTC for seamless customer support and communication..."
-version: 0.0.1
+version: 1.0.0
 homepage: "https://github.com/Ali-Corp/flutter-ali-ott-hotline"
 
 environment:
