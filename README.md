@@ -12,7 +12,7 @@
 dependencies:
   flutter:
   ...
-  flutter_ali_ott_hotline: ^1.0.2
+  flutter_ali_ott_hotline: ^1.0.3
 ```
 
 ## Cấu hình Android
@@ -29,10 +29,6 @@ dependencies:
 repositories{
   maven {
       url 'https://maven.pkg.github.com/Ali-Corp/AliOTT'
-      credentials {
-          username "alicorpvn"
-          password "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"
-      }
   }
 }
 ```
