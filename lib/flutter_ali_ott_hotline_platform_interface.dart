@@ -2,7 +2,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_ali_ott_hotline/flutter_ali_ott_hotline.dart';
 import 'package:flutter_ali_ott_hotline/src/entities/ALIOTTHotlineConfig.dart';
 import 'package:flutter_ali_ott_hotline/src/entities/IOSCallKit.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'flutter_ali_ott_hotline_method_channel.dart';

@@ -17,3 +17,7 @@
 ## 1.0.3
 
 * TODO: Cập nhật README 
+
+## 1.1.0
+
+* TODO: Fix xin quyền lần đầu trên android 

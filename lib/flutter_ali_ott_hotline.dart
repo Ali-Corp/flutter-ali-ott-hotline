@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_ali_ott_hotline/src/entities/ALIOTTHotlineConfig.dart';
 import 'package:flutter_ali_ott_hotline/src/entities/IOSCallKit.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import 'flutter_ali_ott_hotline_platform_interface.dart';
 
@@ -11,17 +10,6 @@ export 'src/entities/ALIOTTHotlineConfig.dart';
 export 'src/entities/IOSCallKit.dart';
 
 class FlutterAliOttHotline {
-  Future<PermissionStatus> getPermission() async {
-    Permission permission = Permission.microphone;
-    final status = await permission.status;
-    if (status.isGranted) {
-      return status;
-    } else {
-      final result = await permission.request();
-      return result;
-    }
-  }
-
   void config(String environment, ALIOTTHotlineConfig hotlineConfig,
       {IOSCallKit? iOSCallKit,
       String? customOnHoldSound,

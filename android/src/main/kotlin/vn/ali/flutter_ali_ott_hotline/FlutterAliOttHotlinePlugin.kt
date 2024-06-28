@@ -4,8 +4,12 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Handler
+import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -25,11 +29,11 @@ import vn.ali.ott.hotline.ALIOTTCallDelegate
 import vn.ali.ott.hotline.ALIOTTDelegate
 import vn.ali.ott.hotline.`object`.ALIOTTCall
 import java.util.function.Function
-
+import android.util.Log
 
 /** FlutterAliOttHotlinePlugin */
 class FlutterAliOttHotlinePlugin: FlutterPlugin, MethodCallHandler, ALIOTTCallDelegate,
-  ALIOTTDelegate, StreamHandler, ActivityAware , RequestPermissionsResultListener  {
+  ALIOTTDelegate, StreamHandler, ActivityAware , DefaultLifecycleObserver {
   /// The MethodChannel that will the communication between Flutter and native Android
   ///
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
@@ -201,44 +205,45 @@ class FlutterAliOttHotlinePlugin: FlutterPlugin, MethodCallHandler, ALIOTTCallDe
     map.put("type", "aliottOnInitFail")
     sendEvent(map)
   }
-  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray): Boolean {
-    if (requestCode == Constants.AUDIO_REQUEST_PERMISSION_CODE) {
-      if (grantResults.size > 0 && permissions.size > 0) {
-        for (i in permissions.indices) {
-          if (permissions[i] == Manifest.permission.RECORD_AUDIO) {
-            onPermissionRequestResultCallback!!.apply(grantResults[i] == PackageManager.PERMISSION_GRANTED)
-            break
-          }
+
+  override fun aliottOnRequestRequiredPermission(callback: Function<Boolean, Void>?) {
+      onPermissionRequestResultCallback = callback
+      activity?.let {
+        if (ActivityCompat.checkSelfPermission(it, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+          ActivityCompat.requestPermissions(
+            it,
+            arrayOf(Manifest.permission.RECORD_AUDIO),
+            Constants.AUDIO_REQUEST_PERMISSION_CODE
+          )
         }
       }
-    }
-    return false
-  }
-  override fun aliottOnRequestRequiredPermission(callback: Function<Boolean, Void>?) {
-
-    onPermissionRequestResultCallback = callback
-    activity?.let {
-      if (ActivityCompat.checkSelfPermission(
-          it,
-          Manifest.permission.RECORD_AUDIO
-        ) != PackageManager.PERMISSION_GRANTED
-      ) {
-        ActivityCompat.requestPermissions(
-          it,
-          arrayOf(Manifest.permission.RECORD_AUDIO),
-          Constants.AUDIO_REQUEST_PERMISSION_CODE
-        )
-      }
-    }
-
   }
 
   override fun aliottOnRequestShowCall(call: ALIOTTCall?) {
+    Log.d("LifecycleOwner", "aliottOnRequestShowCall. func" )
     val params = call?.let { ObjectParser.getInstance().payloadForRequestShowCall(it)}
-    params?.let { sendEvent(it) }
+        params?.let { sendEvent(it) }
   }
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
+    binding.addRequestPermissionsResultListener { requestCode, permissions, grantResults ->
+      if (requestCode == Constants.AUDIO_REQUEST_PERMISSION_CODE) {
+        if (permissions.isNotEmpty() && grantResults.isNotEmpty()) {
+          for (i in permissions.indices) {
+            if (permissions[i] == Manifest.permission.RECORD_AUDIO) {
+              onPermissionRequestResultCallback?.apply(grantResults[i] == PackageManager.PERMISSION_GRANTED)
+              onPermissionRequestResultCallback = null
+              return@addRequestPermissionsResultListener true
+            }
+          }
+        }
+        onPermissionRequestResultCallback?.apply(false)
+        onPermissionRequestResultCallback = null
+        true
+      } else {
+        false
+      }
+    }
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
@@ -251,6 +256,22 @@ class FlutterAliOttHotlinePlugin: FlutterPlugin, MethodCallHandler, ALIOTTCallDe
 
   override fun onDetachedFromActivity() {
     this.activity = null
+    Log.d("LifecycleOwner", "onDetachedFromActivity. func" )
+  }
+  override fun onResume(owner: LifecycleOwner) {
+    super.onResume(owner)
+    Log.d("LifecycleOwner", "onResume. func" )
+    ALIOTT.getInstance().setDelegate(this)
+  }
+
+  override fun onPause(owner: LifecycleOwner) {
+    super.onPause(owner)
+    Log.d("LifecycleOwner", "onPause. func" )
+  }
+
+  override fun onDestroy(owner: LifecycleOwner) {
+    super.onDestroy(owner)
+    ALIOTT.getInstance().setDelegate(null)
   }
 
 }
